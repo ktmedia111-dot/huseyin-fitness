@@ -1,6 +1,6 @@
-HÜSEYİN FITNESS — 2.000 KCAL / 12 HAFTALIK TAKİP
+KT FITNESS TRACKER — HÜSEYİN İÇİN KİŞİSEL TAKİP
 
-Bu uygulama Hüseyin için hazırlanmış bağımsız bir fitness takip uygulamasıdır.
+Bu uygulama KT FITNESS TRACKER, Hüseyin'in kullanımı için kişiselleştirilmiş ayrı bir takip uygulamasıdır.
 KT FITNESS uygulamasından ve onun kayıtlarından ayrıdır.
 
 HEDEFLER
