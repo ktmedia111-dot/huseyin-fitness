@@ -1,13 +1,32 @@
-HÜSEYİN FITNESS — 2.000 KCAL GÜNCEL SÜRÜM
+HÜSEYİN FITNESS — 2.000 KCAL / 12 HAFTALIK TAKİP
 
-Tema: Siyah / kırmızı / beyaz
-Günlük enerji hedefi: 2.000 kcal
-Makrolar: Protein 190 g (760 kcal), karbonhidrat 175 g (700 kcal), yağ 60 g (540 kcal).
-Toplam: 2.000 kcal.
-Öğünler: 08:00, 12:30, 16:00, antrenman sonrası, 20:00.
-Öğün kartlarındaki planlama kalorileri toplamı 2.000 kcal'dir; gerçek değerler ürün ve tartım biçimine göre değişir.
-Kardiyo: Her gün 30 dakika.
-Antrenman: Beş günlük ANT3 programı.
-Günlük kayıtlar tarayıcı hafızasında tutulur. Geçmiş, haftalık PNG raporu ve JSON yedekleme/geri yükleme özellikleri vardır.
+Bu uygulama Hüseyin için hazırlanmış bağımsız bir fitness takip uygulamasıdır.
+KT FITNESS uygulamasından ve onun kayıtlarından ayrıdır.
 
-Not: 2.000 kcal bir başlangıç hedefidir; Hüseyin'in yaş, boy, sağlık durumu ve aktivite düzeyine göre uygunluğu takip edilmelidir. Kilo ve performans eğilimine göre uzman eşliğinde yeniden değerlendirilmelidir.
+HEDEFLER
+- Günlük enerji hedefi: 2.000 kcal
+- Protein: 190 g | Karbonhidrat: 175 g | Yağ: 60 g
+- Beş öğün
+- Her gün 30 dakika kardiyo hedefi
+- Beş günlük direnç antrenmanı planı
+
+ÖZELLİKLER
+- Günlük öğün, antrenman, kardiyo, su ve supplement kayıtları
+- Günlük geçmiş ve haftalık özet
+- Haftalık gelişim raporunu PNG indirme
+- JSON yedekleme ve geri yükleme
+- Öğün, antrenman ve kardiyo tarayıcı bildirimleri
+
+GITHUB PAGES
+Depo ana dizinine aşağıdaki dosyaları aynen bu isimlerle yükleyin:
+index.html, app.js, style.css, manifest.json, sw.js, README.txt
+Settings > Pages > Deploy from a branch > main/ana > /(root) > Save
+
+BİLDİRİMLER
+Ayarlar sayfasından bildirim izni verin. Hatırlatmalar uygulama açıkken çalışır.
+Tarayıcı tamamen kapalıyken veya cihaz uyku modundayken zamanında gelmeleri garanti değildir.
+
+VERİLER
+Kayıtlar cihazın/tarayıcının yerel depolamasında tutulur. Cihazlar arasında otomatik
+senkronizasyon yoktur. Düzenli olarak JSON yedeği indirin.
+Kalori ve makro değerleri yaklaşık plan hedefleridir; gerçek değerler ürün ve porsiyona göre değişir.

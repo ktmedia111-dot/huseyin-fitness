@@ -35,12 +35,48 @@ $('historyDate').value=dateKey();$('historyDate').onchange=()=>{let k=$('history
 function weekDates(value){let d=new Date(value+'T12:00:00'),dayNum=(d.getDay()+6)%7;d.setDate(d.getDate()-dayNum);return Array.from({length:7},(_,i)=>{let x=new Date(d);x.setDate(d.getDate()+i);return x.toISOString().slice(0,10)})}
 function weekData(value){let dates=weekDates(value),rows=dates.map(daySummary);return {dates,rows,meals:rows.reduce((a,x)=>a+x.mealDone,0),supp:rows.reduce((a,x)=>a+x.suppDone,0),cardio:rows.reduce((a,x)=>a+x.cardio,0),water:rows.reduce((a,x)=>a+x.water,0),exercises:rows.reduce((a,x)=>a+x.exerciseDone,0),calories:rows.reduce((a,x)=>a+x.calories,0)}}
 function renderWeek(){let w=weekData($('weekDate').value),fmt=k=>new Date(k+'T12:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'short'});$('weekSummary').innerHTML=`<div class="weekstats"><div><b>${w.meals}/35</b><small>Öğün</small></div><div><b>${w.supp}/28</b><small>Supplement</small></div><div><b>${w.cardio} dk</b><small>Kardiyo</small></div><div><b>${w.water.toFixed(1)} L</b><small>Toplam su</small></div></div><div class="recordlist">${w.rows.map(x=>`<div class="recordrow"><b>${fmt(x.date)}</b><span>${x.mealDone}/5 öğün • ${x.cardio} dk kardiyo • ${x.water.toFixed(2)} L su</span></div>`).join('')}</div>`}
-$('weekDate').value=dateKey();$('weekDate').onchange=renderWeek;$('weekDate').onchange();$('exportWeekPng').onclick=()=>{let w=weekData($('weekDate').value),canvas=document.createElement('canvas');canvas.width=1200;canvas.height=1600;let c=canvas.getContext('2d');c.fillStyle='#101214';c.fillRect(0,0,1200,1600);let grad=c.createLinearGradient(0,0,1200,500);grad.addColorStop(0,'#352316');grad.addColorStop(1,'#111315');c.fillStyle=grad;c.fillRect(0,0,1200,430);c.fillStyle='#ff8a1d';c.font='bold 34px Arial';c.fillText('KT FITNESS  /  LEAN BULK',80,95);c.fillStyle='#ffffff';c.font='bold 64px Arial';c.fillText('HAFTALIK GELİŞİM RAPORU',80,190);c.font='28px Arial';let f=k=>new Date(k+'T12:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});c.fillStyle='#d7d7d7';c.fillText(f(w.dates[0])+' — '+f(w.dates[6]),80,250);
+$('weekDate').value=dateKey();$('weekDate').onchange=renderWeek;$('weekDate').onchange();$('exportWeekPng').onclick=()=>{let w=weekData($('weekDate').value),canvas=document.createElement('canvas');canvas.width=1200;canvas.height=1600;let c=canvas.getContext('2d');c.fillStyle='#101214';c.fillRect(0,0,1200,1600);let grad=c.createLinearGradient(0,0,1200,500);grad.addColorStop(0,'#352316');grad.addColorStop(1,'#111315');c.fillStyle=grad;c.fillRect(0,0,1200,430);c.fillStyle='#ff8a1d';c.font='bold 34px Arial';c.fillText('HÜSEYİN FITNESS  /  12 HAFTALIK GELİŞİM',80,95);c.fillStyle='#ffffff';c.font='bold 64px Arial';c.fillText('HAFTALIK GELİŞİM RAPORU',80,190);c.font='28px Arial';let f=k=>new Date(k+'T12:00:00').toLocaleDateString('tr-TR',{day:'numeric',month:'long',year:'numeric'});c.fillStyle='#d7d7d7';c.fillText(f(w.dates[0])+' — '+f(w.dates[6]),80,250);
 let cards=[['ÖĞÜN',w.meals+'/35'],['SUPPLEMENT',w.supp+'/28'],['KARDİYO',w.cardio+' dk'],['SU',w.water.toFixed(1)+' L'],['ANTRENMAN HAREKETİ',String(w.exercises)],['TAMAMLANAN KALORİ',w.calories.toLocaleString('tr-TR')+' kcal']];cards.forEach((a,i)=>{let x=80+(i%3)*355,y=330+Math.floor(i/3)*180;c.fillStyle='#202428';c.fillRect(x,y,320,135);c.fillStyle='#ff9a36';c.font='bold 21px Arial';c.fillText(a[0],x+22,y+42);c.fillStyle='#fff';c.font='bold 42px Arial';c.fillText(a[1],x+22,y+100)});
 c.fillStyle='#fff';c.font='bold 34px Arial';c.fillText('GÜN GÜN TAKİP',80,760);w.rows.forEach((x,i)=>{let y=820+i*88;c.fillStyle=i%2?'#191c1f':'#22262a';c.fillRect(80,y,1040,68);c.fillStyle='#ff9a36';c.font='bold 23px Arial';c.fillText(new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'short'}),105,y+42);c.fillStyle='#f1f1f1';c.font='21px Arial';c.fillText(`${x.mealDone}/5 öğün   •   ${x.suppDone}/4 supplement   •   ${x.cardio} dk kardiyo   •   ${x.water.toFixed(2)} L su`,420,y+42)});
-c.fillStyle='#9da3a8';c.font='20px Arial';c.fillText('Kişisel takip raporudur. Boş günler sıfır kayıt olarak gösterilir.',80,1510);let a=document.createElement('a');a.download='KT-FITNESS-haftalik-rapor-'+w.dates[0]+'.png';a.href=canvas.toDataURL('image/png');a.click()};
+c.fillStyle='#9da3a8';c.font='20px Arial';c.fillText('Kişisel takip raporudur. Boş günler sıfır kayıt olarak gösterilir.',80,1510);let a=document.createElement('a');a.download='HUSEYIN-FITNESS-haftalik-rapor-'+w.dates[0]+'.png';a.href=canvas.toDataURL('image/png');a.click()};
 $('saveSettings').onclick=()=>{data.settings={calorie:+$('calorieGoal').value,water:+$('waterGoal').value,motivation:$('motivationTime').value};save();alert('Ayarlar kaydedildi.')};
-$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kt-fitness-yedek-'+dateKey()+'.json';a.click();URL.revokeObjectURL(a.href)};
+$('exportData').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='huseyin-fitness-yedek-'+dateKey()+'.json';a.click();URL.revokeObjectURL(a.href)};
 $('importData').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{data=JSON.parse(await f.text());save();render();renderHistory();renderDailyRecords();alert('Yedek geri yüklendi.')}catch{alert('Dosya okunamadı.')}};
 render();renderHistory();renderDailyRecords();
+
+// Bildirimler: izin verildikten sonra uygulama açıkken saatleri kontrol eder.
+const reminderDefaults={meals:true,workout:true,cardio:true,workoutTime:'17:00',cardioTime:'19:00'};
+function reminderSettings(){return {...reminderDefaults,...(data.reminders||{})};}
+function refreshReminderSettings(){
+ const r=reminderSettings();
+ if($('remindMeals')) $('remindMeals').checked=!!r.meals;
+ if($('remindWorkout')) $('remindWorkout').checked=!!r.workout;
+ if($('remindCardio')) $('remindCardio').checked=!!r.cardio;
+ if($('workoutReminderTime')) $('workoutReminderTime').value=r.workoutTime;
+ if($('cardioReminderTime')) $('cardioReminderTime').value=r.cardioTime;
+ if($('notificationStatus')) $('notificationStatus').textContent=(!('Notification' in window))?'Bu tarayıcı bildirimleri desteklemiyor.':Notification.permission==='granted'?'Bildirim izni açık.':Notification.permission==='denied'?'Bildirim izni tarayıcı ayarlarından engellenmiş.':'Bildirim izni bekleniyor.';
+}
+function saveReminderSettings(){
+ data.reminders={meals:$('remindMeals').checked,workout:$('remindWorkout').checked,cardio:$('remindCardio').checked,workoutTime:$('workoutReminderTime').value||'17:00',cardioTime:$('cardioReminderTime').value||'19:00'};
+ save();refreshReminderSettings();
+}
+['remindMeals','remindWorkout','remindCardio','workoutReminderTime','cardioReminderTime'].forEach(id=>{if($(id))$(id).addEventListener('change',saveReminderSettings);});
+if($('enableNotifications')) $('enableNotifications').onclick=async()=>{
+ if(!('Notification' in window)){ $('notificationStatus').textContent='Bu tarayıcı bildirim özelliğini desteklemiyor.';return;}
+ const p=await Notification.requestPermission();refreshReminderSettings();
+ if(p==='granted')new Notification('HÜSEYİN FITNESS',{body:'Hatırlatmalar etkinleştirildi. Hedeflerine odaklan!'});
+};
+function fitnessReminder(title,body,key){
+ const k='huseyin_notify_'+key, todayKey=dateKey();
+ if(localStorage.getItem(k)===todayKey)return;
+ if('Notification' in window&&Notification.permission==='granted'){new Notification(title,{body});localStorage.setItem(k,todayKey);}
+}
+function checkFitnessReminders(){
+ const r=reminderSettings(),d=new Date(),t=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+ if(r.meals)[['08:00','Kahvaltı zamanı','Kahvaltı öğününü tamamla.'],['12:30','Öğle öğünü zamanı','Öğle öğününü unutma.'],['16:00','Ara öğün zamanı','Planındaki ara öğününü tamamla.'],['20:00','Akşam öğünü zamanı','Akşam öğününü ve su hedefini kontrol et.']].forEach(x=>{if(t===x[0])fitnessReminder(x[1],x[2],'meal_'+x[0]);});
+ if(r.workout&&t===r.workoutTime)fitnessReminder('Antrenman zamanı','Bugünkü antrenman planını aç.','workout');
+ if(r.cardio&&t===r.cardioTime)fitnessReminder('Kardiyo zamanı','Günlük 30 dakikalık kardiyo hedefini kontrol et.','cardio');
+}
+refreshReminderSettings();checkFitnessReminders();setInterval(checkFitnessReminders,30000);
+
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}
